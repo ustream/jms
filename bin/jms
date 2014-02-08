@@ -1,0 +1,50 @@
+#!/bin/bash
+
+start() {
+
+    forever start jms.js
+
+}
+
+stop() {
+
+    forever stop jms.js
+
+}
+
+deploy () {
+
+	masterpid=`cat pids/cluster_pidfile`
+	kill -s SIGUSR2 $masterpid
+}
+
+
+status () {
+
+	masterpid=`cat pids/cluster_pidfile`
+	kill -s SIGUSR1 $masterpid
+}
+
+
+case "$1" in
+	start)
+		start
+	;;
+	stop)
+		stop
+	;;
+	status)
+		status
+	;;
+	deploy)
+		deploy
+	;;
+	restart|reload)
+		stop
+		start
+	;;
+*)
+	echo $"Usage: $0 {start|stop|restart|deploy|status}"
+	exit 1
+esac
+exit 0
