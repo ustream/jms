@@ -7,9 +7,6 @@ var async     = require('async');
 var paths     = require('../conf/paths');
 var proc      = require(paths.confdir + '/proc');
 
-var checkdirs = require(paths.libdir + '/startup/checkdirs');
-//var clusters  = require(paths.libdir + '/startup/clusters');
-
 // TODO php addscriptek egy request legyenek
 // TODO szebb filebetoltes :(
 
@@ -20,14 +17,13 @@ var checkdirs = require(paths.libdir + '/startup/checkdirs');
 // TODO: releasetags / featurebranch kezeles
 
 
-
-
 async.waterfall([
-	checkdirs,
-	//clusters,
+	require(paths.libdir + '/startup/checkdirs'),
+	require(paths.libdir + '/startup/clusters'),
 ], function (err, result) {
-
-	console.dir(err)
+	if (err ) {
+		console.dir(err)
+	}
 
 	// result now equals 'done'
 });

@@ -1,7 +1,7 @@
 
 var modules = {
 
-	jsrepo: '../js',
+	jsrepo: './js',
 
 	exportfile: './js-module-server-export.json',
 
