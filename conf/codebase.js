@@ -1,5 +1,5 @@
 
-var modules = {
+var codebase = {
 
 	jsrepo: './js',
 
@@ -17,4 +17,4 @@ var modules = {
 }
 
 
-module.exports = modules;
+module.exports = codebase;
