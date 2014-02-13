@@ -1,9 +1,9 @@
-
+var paths    = require('./paths');
 var codebase = {
 
-	jsrepo: './js',
+	jsrepo: paths.basedir + '/js',
 
-	exportfile: './js-module-server-export.json',
+	exportfile: paths.datadir + '/js-module-server-export.json',
 
 	// apps to pre-package upon deploy
 	// useful for large, really-really static groups,

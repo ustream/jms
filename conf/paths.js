@@ -1,16 +1,18 @@
-
+var basedir = process.cwd();
 var paths = {
 
-	confdir: process.cwd() + "/conf",
-	libdir: process.cwd() + "/lib",
+	basedir: basedir,
 
-	piddir: process.cwd() + "/pids",
-	pidfile: process.cwd() + "/pids/cluster_pidfile",
+	confdir: basedir + "/conf",
+	libdir: basedir + "/lib",
 
-	datadir: process.cwd() + "/data",
+	piddir: basedir + "/pids",
+	pidfile: basedir + "/pids/cluster_pidfile",
 
-	logdir: process.cwd() + "/logs",
-	log: process.cwd() + "/logs/cluster.log",
+	datadir: basedir + "/data",
+
+	logdir: basedir + "/logs",
+	log: basedir + "/logs/cluster.log",
 
 }
 

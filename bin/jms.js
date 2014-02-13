@@ -6,6 +6,7 @@ var async     = require('async');
 
 var paths     = require('../conf/paths');
 var proc      = require(paths.confdir + '/proc');
+var log       = require(paths.libdir + '/debug/log');
 
 // TODO php addscriptek egy request legyenek
 // TODO szebb filebetoltes :(
@@ -21,8 +22,11 @@ async.waterfall([
 	require(paths.libdir + '/startup/checkdirs'),
 	require(paths.libdir + '/startup/clusters'),
 ], function (err, result) {
-	if (err ) {
-		console.dir(err)
+
+
+	if (err) {
+		log.error('error accured');
+		throw err;
 	}
 
 	// result now equals 'done'

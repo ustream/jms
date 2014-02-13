@@ -1,8 +1,7 @@
 
 var debug = {
 
-	debug: true,
-	loglevel: 1, // todo
+	loglevel: 'verbose', // verbose|info|warn|error
 
 };
 
