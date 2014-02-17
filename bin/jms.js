@@ -9,11 +9,8 @@ var proc      = require(paths.confdir + '/proc');
 var log       = require(paths.libdir + '/debug/log');
 
 // TODO php addscriptek egy request legyenek
-// TODO szebb filebetoltes :(
 
 // TODO: vezerles (status)
-
-// TODO: elozo buildnumber-ek is elerhetoek legyenek (failsafe)
 
 // TODO: releasetags / featurebranch kezeles
 
