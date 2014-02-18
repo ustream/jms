@@ -9,8 +9,6 @@ var paths = {
 	piddir: basedir + "/pids",
 	pidfile: basedir + "/pids/cluster_pidfile",
 
-	datadir: basedir + "/data",
-
 	logdir: basedir + "/logs",
 	log: basedir + "/logs/cluster.log",
 
