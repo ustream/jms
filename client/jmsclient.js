@@ -129,6 +129,11 @@ window.jms.client = function (buildNumber, document, undef) {
 		(cfg.useFIF ? loadFIF : load).call(this, context, module, url)
 	}
 
+	for (var i in cfg.pre) {
+		require.apply(window, cfg.pre[i]);
+	}
+	cfg.pre = [];
+
 
 	function params () {
 		var params = [];
