@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+
+    <script type="text/javascript">
+        var jms = {
+            baseURL: '127.0.0.1:1337/', // eloszthato tobb szerver fele is
+            useFIF: false, // stoyan stefanov fele ultra-non-blocking frame cucc
+            debug: false,
+            locale: 'en_US' // locale versions
+        };
+        (function() {
+            jms.baseURL = ('https:' == document.location.protocol ? 'https://' : 'http://') + jms.baseURL;
+            var jmsrc = document.createElement('script'); jmsrc.type = 'text/javascript'; jmsrc.async = true;
+            jmsrc.src = jms.baseURL + 'client.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(jmsrc, s);
+        })();
+    </script>
+</head>
+<body>
+
+</body>
+</html>
