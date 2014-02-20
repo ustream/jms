@@ -2,13 +2,13 @@
 
 start() {
 
-    forever start jms.js
+    forever start bin/jms.js
 
 }
 
 stop() {
 
-    forever stop jms.js
+    forever stop bin/jms.js
 
 }
 
