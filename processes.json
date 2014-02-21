@@ -1,0 +1,11 @@
+[
+	{
+		"name"       : "jms",
+		"script"     : "./bin/jms.js",
+		"instances"  : "max",
+		"error_file" : "./logs/jms-err.log",
+		"out_file"   : "./logs/jms-out.log",
+		"pid_file"   : "./pid/jms.pid",
+		"exec_mode"  : "cluster_mode"
+	}
+]
