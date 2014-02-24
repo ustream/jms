@@ -1,0 +1,27 @@
+{
+	"camelcase":false,
+	"curly":true,
+	"eqeqeq":true,
+	"immed":true,
+	"latedef":true,
+	"newcap":true,
+	"noarg":true,
+	"noempty":true,
+	"regexp":true,
+	"undef":true,
+	"unused":false,
+	"trailing":true,
+	"indent":4,
+	"quotmark": "single",
+	"maxcomplexity":13,
+	"maxlen":140,
+	"eqnull":true,
+	"loopfunc":true,
+	"browser":true,
+	"devel":true,
+	"jquery":true,
+	"onevar":true,
+	"node":true,
+
+	"globals": ["define","require","ustream", "$", "casper", "U"]
+}

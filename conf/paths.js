@@ -5,6 +5,7 @@ var paths = {
 
 	confdir: basedir + "/conf",
 	libdir: basedir + "/lib",
+	pluginsdir: basedir + "/plugins",
 
 	piddir: basedir + "/pids",
 	pidfile: basedir + "/pids/cluster_pidfile",

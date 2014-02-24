@@ -1,0 +1,7 @@
+
+
+
+
+module.exports = {
+	deploy: function () {}
+}
