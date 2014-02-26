@@ -1,8 +1,6 @@
 var TransformStream = require('stream').Transform;
 var util            = require('util');
 
-
-
 function DeployRunner () {
 	TransformStream.apply(this, arguments);
 
@@ -27,7 +25,6 @@ function DeployRunner () {
 
 util.inherits(DeployRunner, TransformStream);
 
-
 DeployRunner.prototype._transform = function (chunk, encoding, done) {
 
 	console.log('plugin example transform' );
@@ -44,9 +41,6 @@ DeployRunner.prototype._transform = function (chunk, encoding, done) {
 	}
 }
 
-
-
-
 DeployRunner.prototype._flush = function (done) {
 
 	console.log('plugin example flush' );
@@ -59,13 +53,6 @@ DeployRunner.prototype._flush = function (done) {
 	done();
 
 }
-
-
-
-
-
-
-
 
 module.exports = {
 
