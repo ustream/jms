@@ -1,12 +1,16 @@
 
 var plugins = {
 
-	jshint: {
+	'jshint': {
 		enabled: false
 	},
 
-	example: {
+	'example': {
 		enabled: true
+	},
+
+	'ustream-locale': {
+		enabled: false
 	}
 
 };
