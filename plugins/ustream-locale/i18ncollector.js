@@ -3,7 +3,7 @@ var util      = require('util');
 
 var localeUnitRegxp = /_t_\([\'|\"]([a-z0-9_\.\-]*)[\'|\"],?\)?/gi;
 
-util.inherits(I18nCollector, Transform);
+
 
 function findLabels (moduleData) {
 
@@ -28,28 +28,15 @@ function findLabels (moduleData) {
 
 function I18nCollector () {
 	Transform.apply(this, arguments);
-
 	this.pause();
 }
 
+util.inherits(I18nCollector, Transform);
 
 I18nCollector.prototype._transform = function (chunk, encoding, done) {
-
-	//var data = JSON.parse(chunk.toString());
-	var data = chunk
-
-	//data = findLabels(data);
-
-	console.log( 'I18nCollector', this.paused);
-
-
-
-	//this.push(JSON.stringify(data));
-	this.push(data);
-
+	var data = findLabels(JSON.parse(chunk.toString()));
+	this.push(JSON.stringify(data));
 	done();
-
 }
-
 
 module.exports = I18nCollector;

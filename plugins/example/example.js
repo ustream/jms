@@ -56,6 +56,7 @@ DeployRunner.prototype._flush = function (done) {
 
 module.exports = {
 
-	deploy: new DeployRunner({ objectMode: true })
+	deploy: new DeployRunner({ objectMode: true }),
 
+	server: function () {}
 }

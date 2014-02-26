@@ -10,7 +10,7 @@ var plugins = {
 	},
 
 	'ustream-locale': {
-		enabled: false
+		enabled: true
 	}
 
 };
