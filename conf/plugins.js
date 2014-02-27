@@ -9,7 +9,7 @@ var plugins = {
 		enabled: true
 	},
 
-	'ustream-locale': {
+	'jms-ustreamlocales': {
 		enabled: true
 	}
 
