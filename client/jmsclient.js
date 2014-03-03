@@ -30,6 +30,13 @@ window.jms.client = function (buildNumber, document, undef) {
 		cfg.useFIF = false;
 	}
 
+
+	debug([
+		['  configuration', cfg],
+		['  buildNumber', buildNumber],
+		['  server', '']
+	]);
+
 	window.jms = function (module, actionArgs, action, actionContext) {
 
 		var requestedModules = actionArgs[1],
@@ -72,12 +79,12 @@ window.jms.client = function (buildNumber, document, undef) {
 
 		}(context));
 
-		console.group('jms');
-		console.log(arguments)
-		console.log('  requested modules: ', requestedModules.join(',') )
-		console.log('  loaded list: ', loadedList )
+		debug([
+			['  arguments', arguments],
+			['  requested modules: ', requestedModules.join(',')],
+			['  loaded list: ', loadedList]
+		]);
 
-		console.groupEnd();
 
 
 		// adott csomagot mar toltjuk epp
@@ -123,7 +130,9 @@ window.jms.client = function (buildNumber, document, undef) {
 
 		// store data for possible lookup
 		// make the load
-		console.log(url, '  loading...');
+		debug([
+			['loading', url]
+		]);
 
 
 		(cfg.useFIF ? loadFIF : load).call(this, context, module, url)
@@ -242,9 +251,9 @@ window.jms.client = function (buildNumber, document, undef) {
 
 
 	function loadFIF (context, moduleName, url) {
-
-
-		var callbackId = "jms" + (+new Date());
+		var callbackId = "jms" + (+new Date()),
+			iframe = document.createElement('iframe'),
+			where, doc;
 
 		window[callbackId] = function (e) {
 			switch(e.type) {
@@ -255,13 +264,8 @@ window.jms.client = function (buildNumber, document, undef) {
 				case "error":
 					context.onScriptError(e);
 			}
-
-
 			window[callbackId] = null;
 		}
-
-		var iframe = document.createElement('iframe'),
-			where, doc;
 
 		(iframe.frameElement || iframe).style.cssText = "width: 0; height: 0; border: 0";
 		iframe.src = "javascript:false";
@@ -305,9 +309,6 @@ window.jms.client = function (buildNumber, document, undef) {
 	function newLoader (callBackOrder, actionArgs, action, actionContext) {
 
 		var loader;
-
-
-
 
 		return (loader = {
 			callBackIndex: callBackOrder,
@@ -382,7 +383,9 @@ window.jms.client = function (buildNumber, document, undef) {
 			},
 
 			completeLoad: function () {
-				console.log('jms completeLoad', loader.callBackIndex)
+				debug([
+					['completed load', loader.callBackIndex]
+				]);
 				orderedLoaders['load_'+loader.callBackIndex]();
 			},
 
@@ -401,6 +404,19 @@ window.jms.client = function (buildNumber, document, undef) {
 			}
 		});
 	}
+
+	function debug (data) {
+		if (!cfg.debug) {
+			return;
+		}
+
+		console.group('jms')
+		for (var i in data) {
+			console.log(data[i][0], data[i][1]);
+		}
+		console.groupEnd()
+	}
+
 
 };
 

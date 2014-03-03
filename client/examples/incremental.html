@@ -5,10 +5,10 @@
 
     <script type="text/javascript">
         var jms = {
-            baseURL: '127.0.0.1:1337/', // eloszthato tobb szerver fele is
+            baseURL: '127.0.0.1:1337/',
             useFIF: false, // stoyan stefanov fele ultra-non-blocking frame cucc
-            debug: false,
-            locale: 'en_US' // locale versions
+            debug: true,
+            locale: 'en_US'
         };
         (function() {
             jms.pre = [], jms.baseURL = ('https:' == document.location.protocol ? 'https://' : 'http://') + jms.baseURL;
