@@ -1,26 +1,11 @@
 var TransformStream = require('stream').Transform;
 var util            = require('util');
 
+
+
+
 function DeployRunner () {
 	TransformStream.apply(this, arguments);
-
-
-	this.on('drain', function () {
-		console.log('plugin example event', 'drain');
-	})
-
-	this.on('finish', function () {
-		console.log('plugin example event', 'finish');
-	})
-
-	this.on('pipe', function () {
-		console.log('plugin example event', 'pipe');
-	})
-
-	this.on('unpipe', function () {
-		console.log('plugin example event', 'unpipe');
-	})
-
 }
 
 util.inherits(DeployRunner, TransformStream);
@@ -41,22 +26,29 @@ DeployRunner.prototype._transform = function (chunk, encoding, done) {
 	}
 }
 
-DeployRunner.prototype._flush = function (done) {
 
-	console.log('plugin example flush' );
 
-	if (this._lastLineData) {
-		this.push(this._lastLineData);
+
+
+function ServerRunner () {
+	TransformStream.apply(this, arguments);
+}
+
+util.inherits(ServerRunner, TransformStream);
+
+ServerRunner.prototype._transform = function (chunk, encoding, done) {
+
+	//console.log('plugin example transform server run' );
+
+	var pushDone = this.push(chunk);
+
+
+	if (pushDone) {
+		done();
 	}
-	this._lastLineData = null;
-
-	done();
-
 }
 
 module.exports = {
-
 	deploy: new DeployRunner({ objectMode: true }),
-
-	server: function () {}
+	server: new ServerRunner({ objectMode: true })
 }
