@@ -48,7 +48,9 @@ ServerRunner.prototype._transform = function (chunk, encoding, done) {
 	}
 }
 
+
+
 module.exports = {
-	deploy: new DeployRunner({ objectMode: true }),
-	server: new ServerRunner({ objectMode: true })
+	deploy: DeployRunner,
+	server: ServerRunner
 }
