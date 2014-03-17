@@ -12,8 +12,6 @@ util.inherits(DeployRunner, TransformStream);
 
 DeployRunner.prototype._transform = function (chunk, encoding, done) {
 
-	//console.log('plugin example transform' );
-
 	var data = JSON.parse(chunk.toString());
 
 	data.example = 'example-plugin';
@@ -38,10 +36,7 @@ util.inherits(ServerRunner, TransformStream);
 
 ServerRunner.prototype._transform = function (chunk, encoding, done) {
 
-	//console.log('plugin example transform server run' );
-
 	var pushDone = this.push(chunk);
-
 
 	if (pushDone) {
 		done();

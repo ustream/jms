@@ -2,27 +2,32 @@
 
 start() {
 
-    forever start bin/jms.js
+    pm2 start processes.json
 
 }
 
 stop() {
 
-    forever stop bin/jms.js
+    pm2 delete processes.json
 
 }
 
 deploy () {
 
-	masterpid=`cat pids/cluster_pidfile`
-	kill -s SIGUSR2 $masterpid
+	node bin/jms-deploy.js
+
 }
 
+restart () {
+
+    pm2 restart processes.json
+
+}
 
 status () {
 
-	masterpid=`cat pids/cluster_pidfile`
-	kill -s SIGUSR1 $masterpid
+    echo "Todo"
+
 }
 
 
@@ -40,8 +45,7 @@ case "$1" in
 		deploy
 	;;
 	restart|reload)
-		stop
-		start
+		restart
 	;;
 *)
 	echo $"Usage: $0 {start|stop|restart|deploy|status}"
