@@ -5,13 +5,14 @@
 	"author": "nec@ustream.tv",
 	"version": "0.0.1",
 	"dependencies": {
-		"lodash":       "latest",
-		"request":      "latest",
-		"async":        "~0.2.9",
-		"uglify-js":    "latest",
-		"npmlog":		"latest",
-		"redis":		"latest",
-		"event-stream": "latest"
+		"lodash":        "latest",
+		"request":       "latest",
+		"async":         "~0.2.9",
+		"uglify-js":     "latest",
+		"npmlog":        "latest",
+		"redis":         "latest",
+		"event-stream":  "latest",
+		"pm2-interface": "latest"
 	},
 	"devDependencies": {
 		"grunt":                "latest",
