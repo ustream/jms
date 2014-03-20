@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+    <script src="http://code.highcharts.com/modules/exporting.js"></script>
+</head>
+<body>
+
+
+<div id="memory" style="min-width: 310px; height: 300px; margin: 0 auto"></div>
+<div id="req" style="min-width: 310px; height: 300px; margin: 0 auto"></div>
+
+
+<script type="application/javascript">
+
+    var url = 'http://127.0.0.1:57475/'
+
+
+    function onStats (stat) {
+
+        $('#memory').highcharts().series[0].addPoint([(new Date()).getTime(), stat.mem], true, true);
+        $('#memory').highcharts().series[1].addPoint([(new Date()).getTime(), stat.cpu], true, true);
+
+        $('#req').highcharts().series[0].addPoint([(new Date()).getTime(), stat.reqpersec], true, true);
+        $('#req').highcharts().series[1].addPoint([(new Date()).getTime(), stat.concurrent], true, true);
+
+    }
+
+    $(function () {
+        Highcharts.setOptions({
+            global: {
+                useUTC: false
+            }
+        });
+
+        $('#memory').highcharts({
+            chart: {
+                type: 'area'
+            },
+            title: {
+                text: 'JMS memory / CPU usage'
+            },
+            subtitle: {
+                text: ''
+            },
+            xAxis: {
+                type: 'datetime',
+                tickPixelInterval: 150
+            },
+            yAxis: [
+
+                {
+                    title: {
+                        text: 'memory (kB)',
+                        style: { "color": "#91b31b", "fontWeight": "bold" }
+                    },
+                    plotLines: [{
+                        value: 0,
+                        width: 1,
+                        color: '#91b31b'
+                    }],
+                    minorGridLineColor: '#eeece4',
+                    minorGridLineWidth: 1,
+                    minorTickLength: 0,
+                    minorTickInterval: 'auto',
+                    format: '{value} MB',
+                    labels: {
+                        formatter: function() {
+                            var value = Math.round(( this.value / 1024 / 1024 ) * 100) / 100;
+                            return value + ' MB';
+                        }
+                    }
+                },
+
+                {
+                    title: {
+                        text: 'average cpu (%)',
+                        style: { "color": "#ce3613", "fontWeight": "bold" }
+                    },
+                    format: '{value} %',
+                    plotLines: [{
+                        value: 0,
+                        width: 1,
+                        color: '#ce3613'
+                    }],
+                    max: 100,
+                    min: 0,
+                    labels: {
+                        formatter: function() {
+                            var value = Math.round(( this.value ) * 100) / 100;
+                            return value + ' %';
+                        }
+                    },
+                    opposite: true
+                }
+            ],
+            tooltip: {
+            //    pointFormat: '{series.name} produced <b>{point.y:,.0f}</b><br/>warheads in {point.x}'
+            },
+            plotOptions: {
+                area: {
+                    fillColor: {
+                        linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1},
+                        stops: [
+                            [0, Highcharts.Color('#91b31b').setOpacity(0.8).get('rgba')],
+                            [1, Highcharts.Color('#91b31b').setOpacity(0).get('rgba')]
+                        ]
+                    },
+                    pointStart: 0,
+                    lineWidth: 1,
+                    marker: {
+                        enabled: false,
+                        symbol: 'circle',
+                        radius: 2
+                    }
+                },
+                spline: {
+                    marker: {
+                        enabled: false
+                    }
+                }
+            },
+            series: [
+                {
+                    name: 'total memory',
+                    type: 'area',
+                    color: '#91b31b',
+                    data: (function() {
+                        // generate an array of random data
+                        var data = [],
+                                time = (new Date()).getTime(),
+                                i;
+
+                        for (i = -19; i <= 0; i++) {
+                            data.push({
+                                x: time + i * 1000,
+                                y: 0
+                            });
+                        }
+                        return data;
+                    })()
+                },
+                {
+                    name: 'average CPU usage (%)',
+                    type: 'spline',
+                    color: '#ce3613',
+                    yAxis: 1,
+                    data: (function() {
+                        // generate an array of random data
+                        var data = [],
+                                time = (new Date()).getTime(),
+                                i;
+
+                        for (i = -19; i <= 0; i++) {
+                            data.push({
+                                x: time + i * 1000,
+                                y: 0
+                            });
+                        }
+                        return data;
+                    })()
+                }
+            ],
+            exporting: {
+                enabled: false
+            }
+        });
+
+
+
+        $('#req').highcharts({
+            chart: {
+                type: 'area'
+            },
+            title: {
+                text: 'JMS requests/sec, concurrent requests'
+            },
+            subtitle: {
+                text: ''
+            },
+            xAxis: {
+                type: 'datetime',
+                tickPixelInterval: 150
+            },
+            yAxis: [
+                {
+                    title: {
+                        text: 'req / sec',
+                        style: { "color": "#539eec", "fontWeight": "bold" }
+                    },
+                    plotLines: [{
+                        value: 0,
+                        width: 1,
+                        color: '#539eec'
+                    }],
+                    minorGridLineColor: '#eeece4',
+                    minorGridLineWidth: 1,
+                    minorTickLength: 0,
+                    minorTickInterval: 'auto',
+                    min: 0,
+                    format: '{value} req/sec',
+                    labels: {
+                        formatter: function() {
+                            var value = Math.round(( this.value ) * 100) / 100;
+                            return value + ' req/sec';
+                        }
+                    }
+                },
+                {
+                    title: {
+                        text: 'concurrent requests',
+                        style: { "color": "#91b31b", "fontWeight": "bold" }
+                    },
+                    format: '{value} ',
+                    plotLines: [{
+                        value: 0,
+                        width: 1,
+                        color: '#91b31b'
+                    }],
+                    min: 0,
+                    labels: {
+                        formatter: function() {
+                            var value = Math.round(( this.value ) * 100) / 100;
+                            return value + '';
+                        }
+                    },
+                    opposite: true
+                }
+            ],
+            tooltip: {
+                //    pointFormat: '{series.name} produced <b>{point.y:,.0f}</b><br/>warheads in {point.x}'
+            },
+            plotOptions: {
+                area: {
+                    fillColor: {
+                        linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1},
+                        stops: [
+                            [0, Highcharts.Color('#539eec').setOpacity(0.8).get('rgba')],
+                            [1, Highcharts.Color('#539eec').setOpacity(0).get('rgba')]
+                        ]
+                    },
+                    lineWidth: 1,
+                    pointStart: 0,
+                    marker: {
+                        enabled: false,
+                        symbol: 'circle',
+                        radius: 2
+                    }
+                }
+            },
+            series: [
+                {
+                    name: 'requests per second',
+                    type: 'area',
+                    color: '#539eec',
+                    data: (function() {
+                        // generate an array of random data
+                        var data = [],
+                                time = (new Date()).getTime(),
+                                i;
+
+                        for (i = -19; i <= 0; i++) {
+                            data.push({
+                                x: time + i * 1000,
+                                y: 0
+                            });
+                        }
+                        return data;
+                    })()
+                },
+                {
+                    name: 'concurrent requests',
+                    type: 'column',
+                    color: '#91b31b',
+                    yAxis: 1,
+                    data: (function() {
+                        // generate an array of random data
+                        var data = [],
+                                time = (new Date()).getTime(),
+                                i;
+
+                        for (i = -19; i <= 0; i++) {
+                            data.push({
+                                x: time + i * 1000,
+                                y: 0
+                            });
+                        }
+                        return data;
+                    })()
+                }
+            ],
+            exporting: {
+                enabled: false
+            }
+        });
+
+        $.getJSON(url, onStats);
+
+        setInterval(function () {
+            $.getJSON(url, onStats);
+        }, 2000);
+
+
+
+
+    });
+
+</script>
+
+</body>
+</html>
