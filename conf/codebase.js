@@ -12,9 +12,11 @@ var codebase = {
 		'bootstrap'
 	],
 
-	init_app: 'loader'
+	init_app: 'loader',
 
-}
+    loadHidden: false,
+
+};
 
 
 module.exports = codebase;
