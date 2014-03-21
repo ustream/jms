@@ -11,7 +11,11 @@ var plugins = {
 
 	'jms-ustreamlocales': {
 		enabled: true
-	}
+	},
+
+    'compressor': {
+        enabled: true
+    }
 
 };
 
