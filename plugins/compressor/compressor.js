@@ -1,10 +1,11 @@
 var Transform = require('stream').Transform;
 var util      = require('util');
 
-var uglify         = require('uglify-js');
+var uglify    = require('uglify-js');
 
-function ModuleCompressor () {
-	Transform.apply(this, arguments);
+function ModuleCompressor (streamConf, pluginConf) {
+	Transform.call(this, streamConf);
+	this.pluginConf = pluginConf;
 }
 
 util.inherits(ModuleCompressor, Transform);

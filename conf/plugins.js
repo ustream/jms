@@ -6,7 +6,10 @@ var plugins = {
 	},
 
 	'example': {
-		enabled: true
+		enabled: true,
+		options: {
+			option_for_plugin: true
+		}
 	},
 
 	'jms-ustreamlocales': {
