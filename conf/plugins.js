@@ -6,12 +6,19 @@ var plugins = {
 	},
 
 	'example': {
-		enabled: true
+		enabled: true,
+		options: {
+			option_for_plugin: true
+		}
 	},
 
 	'jms-ustreamlocales': {
 		enabled: true
-	}
+	},
+
+    'compressor': {
+        enabled: true
+    }
 
 };
 

@@ -4,8 +4,9 @@ var util            = require('util');
 
 
 
-function DeployRunner () {
-	TransformStream.apply(this, arguments);
+function DeployRunner (streamConf, pluginConf) {
+	TransformStream.call(this, streamConf);
+	this.pluginConf = pluginConf;
 }
 
 util.inherits(DeployRunner, TransformStream);
@@ -15,6 +16,7 @@ DeployRunner.prototype._transform = function (chunk, encoding, done) {
 	var data = JSON.parse(chunk.toString());
 
 	data.example = 'example-plugin';
+	data.options = this.pluginConf;
 
 	var pushDone = this.push(JSON.stringify(data));
 
@@ -28,8 +30,9 @@ DeployRunner.prototype._transform = function (chunk, encoding, done) {
 
 
 
-function ServerRunner () {
-	TransformStream.apply(this, arguments);
+function ServerRunner (streamConf, pluginConf) {
+	TransformStream.call(this, streamConf);
+	this.pluginConf = pluginConf;
 }
 
 util.inherits(ServerRunner, TransformStream);
