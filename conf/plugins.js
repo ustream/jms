@@ -1,25 +1,29 @@
 
-var plugins = {
+var plugins = [
 
-	'jshint': {
+	{
+		name: 'jshint',
 		enabled: false
 	},
 
-	'example': {
+	{
+		name: 'example',
 		enabled: true,
 		options: {
 			option_for_plugin: true
 		}
 	},
 
-	'jms-ustreamlocales': {
+	{
+		name: 'jms-ustreamlocales',
 		enabled: true
 	},
 
-    'compressor': {
+    {
+		name: 'compressor',
         enabled: true
     }
 
-};
+];
 
 module.exports = plugins;

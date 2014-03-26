@@ -1,7 +1,8 @@
 
 var debug = {
 
-	loglevel: 'error', // verbose|info|warn|error
+	loglevel: 'verbose', // verbose|info|warn|error
+	//loglevel: 'error', // verbose|info|warn|error
 
 };
 
