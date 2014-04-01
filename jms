@@ -1,14 +1,33 @@
 #!/bin/bash
 
+NAME=jms
+DESC="Javascript Module Server"
+BASEDIR=/opt/jms
+
+
+checkdirs() {
+    if [ ! -d "$BASEDIR/pid" ]; then
+        mkdir "$BASEDIR/pid"
+    fi
+
+    if [ ! -d "$BASEDIR/logs" ]; then
+            mkdir "$BASEDIR/logs"
+    fi
+}
+
 start() {
 
-    ppm2 start processes.json > /dev/null 2>&1
+    checkdirs
+
+    cd $BASEDIR
+    pm2 start processes.json > /dev/null 2>&1
     RET=$?
     exit $RET
 }
 
 stop() {
 
+    cd $BASEDIR
     pm2 delete processes.json > /dev/null 2>&1
     RET=$?
     exit $RET
@@ -17,12 +36,16 @@ stop() {
 
 deploy () {
 
+    cd $BASEDIR
 	node bin/jms-deploy.js
 
 }
 
 restart () {
 
+    checkdirs
+
+    cd $BASEDIR
     pm2 restart jms > /dev/null 2>&1
     RET=$?
     exit $RET
@@ -31,8 +54,10 @@ restart () {
 
 status () {
 
+    cd $BASEDIR
     node bin/status.js
-
+    RET=$?
+    exit $RET
 }
 
 
