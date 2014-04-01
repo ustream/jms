@@ -2,16 +2,16 @@
 
 start() {
 
-    pm2 start processes.json
-    node lib/monitor.js &
-    echo $! > pid/monitoring.pid
+    ppm2 start processes.json > /dev/null 2>&1
+    RET=$?
+    exit $RET
 }
 
 stop() {
 
-    pm2 delete processes.json
-    PID=$(cat pid/monitoring.pid)
-    kill -9 $PID
+    pm2 delete processes.json > /dev/null 2>&1
+    RET=$?
+    exit $RET
 
 }
 
@@ -23,7 +23,9 @@ deploy () {
 
 restart () {
 
-    pm2 restart processes.json
+    pm2 restart jms > /dev/null 2>&1
+    RET=$?
+    exit $RET
 
 }
 

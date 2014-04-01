@@ -7,5 +7,14 @@
 		"out_file"   : "./logs/jms-out.log",
 		"pid_file"   : "./pid/jms.pid",
 		"exec_mode"  : "cluster_mode"
+	},
+	{
+		"name"       : "jms-monit",
+		"script"     : "./lib/monitor.js",
+		"instances"  : "1",
+		"error_file" : "./logs/jms-monit-err.log",
+		"out_file"   : "./logs/jms-monit-out.log",
+		"pid_file"   : "./pid/jms-monit.pid",
+		"exec_mode"  : "fork_mode"
 	}
 ]
