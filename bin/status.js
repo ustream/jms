@@ -12,7 +12,13 @@ http.get({
 	host: monitConf.host,
 	port: monitConf.port
 }, function( res ) {
+
 	res.on('data', function( data ) {
+		if (res.statusCode !== 200) {
+			process.stdout.write(['ERROR: JMS or JMS monitoring is not online'].join('') + '\n');
+			process.exit(1);
+		}
+
 		var stat = data.toString();
 		stat = JSON.parse(stat);
 
@@ -22,10 +28,13 @@ http.get({
 			'    ', 'requests / sec ', stat.reqpersec,  '\n',
 			'    ', 'cpu usage (%) ', stat.cpu,  '\n',
 			'    ', 'memory usage (MB) ', Math.ceil(stat.mem/ 1024 / 1024),  '\n',
-			'    ', 'total requests served ', stat.served,  '\n'
+			'    ', 'total requests served ', stat.served,  '\n',
+			'    ', 'exits per sec ', stat.exitspersec,  '\n'
 		].join('') + '\n');
+		process.exit(0);
 
 	} );
 }).on('error', function () {
 	process.stdout.write(['ERROR: JMS or JMS monitoring is not online'].join('') + '\n');
+	process.exit(1);
 });

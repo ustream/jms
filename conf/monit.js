@@ -5,7 +5,9 @@ var monit = {
 
 	host: '127.0.0.1',
 	port: 57475,
-	interval: 2000
+	interval: 1000,
+
+	max_requests: 1000
 
 };
 

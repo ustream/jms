@@ -2,8 +2,7 @@
 
 NAME=jms
 DESC="Javascript Module Server"
-BASEDIR=/opt/jms
-
+BASEDIR=/Users/_nec/sandbox/jms
 
 checkdirs() {
     if [ ! -d "$BASEDIR/pid" ]; then
