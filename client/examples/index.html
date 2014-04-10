@@ -5,20 +5,27 @@
 
     <script type="text/javascript">
         var jms = {
-            baseURL: '127.0.0.1:1337/', // eloszthato tobb szerver fele is
-            useFIF: false, // stoyan stefanov fele ultra-non-blocking frame cucc
-            debug: false,
-            locale: 'en_US' // locale versions
+            //baseURL: 'sjc-jmstest.ustream.tv/',
+            baseURL: '127.0.0.1:1337/',
+            debug: true,
+            locale: 'en_US'
         };
         (function() {
-            jms.baseURL = ('https:' == document.location.protocol ? 'https://' : 'http://') + jms.baseURL;
+            jms.pre = [], jms.baseURL = ('https:' == document.location.protocol ? 'https://' : 'http://') + jms.baseURL;
             var jmsrc = document.createElement('script'); jmsrc.type = 'text/javascript'; jmsrc.async = true;
             jmsrc.src = jms.baseURL + 'client.js';
             var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(jmsrc, s);
+            window.require = function(){jms.pre.push(arguments)}
         })();
     </script>
 </head>
 <body>
+
+<script type="text/javascript">
+    require(['apps/Home'], function(apps_Foo) {
+                var last = true;
+    });
+    </script>
 
 </body>
 </html>

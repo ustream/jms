@@ -26,11 +26,6 @@ window.jms.client = function (buildNumber, document, undef) {
 	if (!cfg.baseURL) {
 	}
 
-	if (!cfg.useFIF) {
-		cfg.useFIF = false;
-	}
-
-
 	debug([
 		['  configuration', cfg],
 		['  buildNumber', buildNumber],
@@ -134,8 +129,7 @@ window.jms.client = function (buildNumber, document, undef) {
 			['loading', url]
 		]);
 
-
-		(cfg.useFIF ? loadFIF : load).call(this, context, module, url)
+		load.call(this, context, module, url);
 	}
 
 	for (var i in cfg.pre) {
@@ -152,9 +146,6 @@ window.jms.client = function (buildNumber, document, undef) {
 		}
 		if (cfg.debug) {
 			params.push('debug=1');
-		}
-		if (cfg.useFIF) {
-			params.push('fif=1');
 		}
 
 		params.push('cb=jmscb_' + callBackOrder);
@@ -210,74 +201,6 @@ window.jms.client = function (buildNumber, document, undef) {
 		//currentlyAddingScript = null;
 
 		return node;
-	}
-
-
-
-	/*
-	 // // // // // // // // //
-
-	 This will be injected in an iframe onload as text (toString),
-	 here is just easier to maintain.
-
-	 Do not use globals from this scope!
-	 */
-	function fif_injector (url, moduleName, callbackId) {
-		var isOpera = typeof opera !== 'undefined' && opera.toString() === '[object Opera]', // (dull)
-			node = document.createElement('script');
-		node.type = 'text/javascript';
-		node.charset = 'utf-8';
-		node.async = true;
-		node.setAttribute('data-requiremodule', moduleName);
-
-		if (node.attachEvent &&
-			!(node.attachEvent.toString && node.attachEvent.toString().indexOf('[native code') < 0) &&
-			!isOpera) {
-
-			node.attachEvent('onreadystatechange', window.parent[callbackId]);
-		} else {
-			node.addEventListener('load', window.parent[callbackId], false);
-			node.addEventListener('error', window.parent[callbackId], false);
-		}
-		node.src = url;
-		document.getElementsByTagName('body')[0].appendChild(node);
-	}
-	/*
-	 You've been warned
-
-	 // // // // // // // // //
-	 */
-
-
-
-	function loadFIF (context, moduleName, url) {
-		var callbackId = "jms" + (+new Date()),
-			iframe = document.createElement('iframe'),
-			where, doc;
-
-		window[callbackId] = function (e) {
-			switch(e.type) {
-				case "load":
-				case "readystatechange":
-					context.onScriptLoad(e);
-					break;
-				case "error":
-					context.onScriptError(e);
-			}
-			window[callbackId] = null;
-		}
-
-		(iframe.frameElement || iframe).style.cssText = "width: 0; height: 0; border: 0";
-		iframe.src = "javascript:false";
-
-		where = document.getElementsByTagName('script')[0];
-		where.parentNode.insertBefore(iframe, where);
-
-		doc = iframe.contentWindow.document;
-		doc.open().write('<body onload="('+ fif_injector.toString() +'(\''+url+'\',\''+moduleName+'\',\''+callbackId+'\'));"></body>');
-		doc.close();
-
-		context.packFileUrl = url;
 	}
 
 	function inArray(find, inArr) {
