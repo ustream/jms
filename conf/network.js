@@ -5,7 +5,7 @@ var network = {
 	//host: '10.220.1.150',
 	port: 1337,
 
-	cache: true,
+	cache: true
 };
 
 module.exports = network;
