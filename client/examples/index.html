@@ -3,10 +3,14 @@
 <head>
     <title></title>
 
+    <link rel="dns-prefetch" href="//sjc-jmstest.ustream.tv">
     <script type="text/javascript">
+
+        console.log(+new Date() );
+
         var jms = {
-            //baseURL: 'sjc-jmstest.ustream.tv/',
-            baseURL: '127.0.0.1:1337/',
+            baseURL: 'sjc-jmstest.ustream.tv/',
+           // baseURL: '127.0.0.1:1337/',
             debug: true,
             locale: 'en_US'
         };
@@ -18,12 +22,14 @@
             window.require = function(){jms.pre.push(arguments)}
         })();
     </script>
+
+
 </head>
 <body>
 
 <script type="text/javascript">
-    require(['apps/Home'], function(apps_Foo) {
-                var last = true;
+    require(['apps/Home'], function(Home) {
+        var last = true;
     });
     </script>
 
