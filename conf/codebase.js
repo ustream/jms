@@ -3,7 +3,7 @@ var codebase = {
 
 	jsrepo: paths.basedir + '/js',
 
-    loadHidden: false,
+	loadHidden: false,
 
 };
 

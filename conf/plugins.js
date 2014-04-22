@@ -14,11 +14,6 @@ var plugins = [
 		}
 	},
 
-	{
-		name: 'jms-ustreamlocales',
-		enabled: true
-	},
-
     {
 		name: 'compressor',
         enabled: true
