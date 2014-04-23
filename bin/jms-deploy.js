@@ -1,25 +1,32 @@
 #!/usr/bin/env node
 
 var paths          = require('../conf/paths');
-var log            = require(paths.libdir + '/debug/log');
-var builder        = require(paths.libdir + '/startup/builder');
-
+var checkdirs      = require(paths.libdir + '/startup/checkdirs');
 var startTime = +new Date();
 
-builder(true, function (err) {
+function runBuilder () {
 
-	var doneTime = +new Date();
+	var log = require(paths.libdir + '/debug/log');
 
-	var elapsed = Math.round((doneTime - startTime) / 1000);
+	require(paths.libdir + '/startup/builder')(true, function (err) {
 
-	process.stdout.write(['deploy time (sec): ', elapsed ].join('') + '\n');
+		var doneTime = +new Date();
 
-	if (err) {
-		log.error('jms-deploy', err);
-		process.exit(1);
-		return;
-	}
+		var elapsed = Math.round((doneTime - startTime) / 1000);
 
-	log.info('jms-deploy', 'done');
-	process.exit(0);
-});
+		process.stdout.write(['deploy time (sec): ', elapsed ].join('') + '\n');
+
+		if (err) {
+			log.error('jms-deploy', err);
+			process.exit(1);
+			return;
+		}
+
+		log.info('jms-deploy', 'done');
+		process.exit(0);
+	});
+
+}
+
+
+checkdirs(runBuilder);
