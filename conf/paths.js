@@ -7,8 +7,8 @@ var paths = {
 	libdir: basedir + "/lib",
 	pluginsdir: basedir + "/plugins",
 
-	piddir: basedir + "/pids",
-	pidfile: basedir + "/pids/cluster_pidfile",
+	piddir: basedir + "/pid",
+	pidfile: basedir + "/pid/cluster_pidfile",
 
 	logdir: basedir + "/logs",
 	log: basedir + "/logs/cluster.log",
