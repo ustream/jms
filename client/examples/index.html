@@ -19,19 +19,20 @@
             var jmsrc = document.createElement('script'); jmsrc.type = 'text/javascript'; jmsrc.async = true;
             jmsrc.src = jms.baseURL + 'client.js';
             var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(jmsrc, s);
-            window.require = function(){jms.pre.push(arguments)}
+            window.require = function(){console.log(jms); jms.pre.push(arguments)}
         })();
+
     </script>
 
+
+<script type="text/javascript">
+    require(['apps/Foo'], function(Foo) {
+        var last = true;
+    });
+</script>
 
 </head>
 <body>
-
-<script type="text/javascript">
-    require(['apps/Main'], function(Home) {
-        var last = true;
-    });
-    </script>
 
 </body>
 </html>

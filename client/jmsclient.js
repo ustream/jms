@@ -1,4 +1,4 @@
-window.jms.client = function (buildNumber, document, undef) {
+window.jms.client = (function (document, undef) {
 
 	var cfg,
 		isOpera = typeof opera !== 'undefined' && opera.toString() === '[object Opera]', // (dull)
@@ -20,15 +20,16 @@ window.jms.client = function (buildNumber, document, undef) {
 	}
 
 	if (typeof window.jms != 'undefined') {
-		cfg = window.jms;
+		cfg = clone(window.jms);
 	}
 
 	if (!cfg.baseURL) {
+		throw Error("Missing base url for JMS");
 	}
 
 	debug([
 		['  configuration', cfg],
-		['  buildNumber', buildNumber],
+		//['  buildNumber', buildNumber],
 		['  server', '']
 	]);
 
@@ -54,8 +55,11 @@ window.jms.client = function (buildNumber, document, undef) {
 				if (lastLoaded == context.callBackIndex) {
 					lastLoaded++;
 
-					window['jmscb_' + context.callBackIndex]();
-					context.passContext();
+					console.log('running received callback');
+
+					var moduleMap = window['jmscb_' + context.callBackIndex]();
+
+					context.passContext(moduleMap.split('%%%'));
 
 
 					if (orderedLoaders['load_' + (context.callBackIndex + 1)]) {
@@ -106,7 +110,7 @@ window.jms.client = function (buildNumber, document, undef) {
 		var url = [
 			cfg.baseURL,
 			'js/',
-			buildNumber + '/',
+			//buildNumber + '/',
 			'+',
 			modulesToLoad.join(','),
 			(loadedList.length) ? '-'+loadedList.join(',') : '',
@@ -132,7 +136,9 @@ window.jms.client = function (buildNumber, document, undef) {
 		load.call(this, context, module, url);
 	}
 
+
 	for (var i in cfg.pre) {
+		console.log(cfg.pre[i]);
 		require.apply(window, cfg.pre[i]);
 	}
 	cfg.pre = [];
@@ -181,6 +187,7 @@ window.jms.client = function (buildNumber, document, undef) {
 			//node.attachEvent('onerror', context.onScriptError);
 		} else {
 			node.addEventListener('load', context.onScriptLoad, false);
+			node.addEventListener('readystatechange', context.onScriptLoad, false);
 			node.addEventListener('error', context.onScriptError, false);
 		}
 
@@ -227,6 +234,28 @@ window.jms.client = function (buildNumber, document, undef) {
 				}
 			}
 		}
+	}
+
+	function array_replace (haystack, needle, replaceTo) {
+		each(haystack, function (elem, i) {
+			if (elem === needle) {
+				haystack[i] = replaceTo;
+			}
+		});
+
+		return haystack;
+	}
+
+	function remapModules (requestArgs, moduleMap) {
+		var req = requestArgs[1];
+
+		each(req, function (module, rIndex) {
+			loadedList = array_replace(loadedList, module,  moduleMap[rIndex]);
+		});
+
+		requestArgs[1] = moduleMap;
+
+		return requestArgs;
 	}
 
 	function newLoader (callBackOrder, actionArgs, action, actionContext) {
@@ -312,20 +341,32 @@ window.jms.client = function (buildNumber, document, undef) {
 				orderedLoaders['load_'+loader.callBackIndex]();
 			},
 
-			passContext: function () {
+			passContext: function (moduleMap) {
 				var l = loader.onCompleteAction.length,
 					action, context, args;
 
 				for(var i = 0; i < l; i++) {
 					action = loader.onCompleteAction[i];
 					context = loader.onCompleteActionContext[i];
-					args = loader.onCompleteActionArguments[i];
+
+					args = remapModules(loader.onCompleteActionArguments[i], moduleMap);
+
 					action.apply(context, args);
 				}
 
 				contextList[loader.packFileUrl] = null;
 			}
 		});
+	}
+
+	function clone(obj) {
+		var target = {};
+		for (var i in obj) {
+			if (obj.hasOwnProperty(i)) {
+				target[i] = obj[i];
+			}
+		}
+		return target;
 	}
 
 	function debug (data) {
@@ -341,30 +382,4 @@ window.jms.client = function (buildNumber, document, undef) {
 	}
 
 
-};
-
-(function (document){
-	var xhr;
-	if (window.ActiveXObject)
-	{
-		try {
-			xhr = new ActiveXObject("Microsoft.XMLHTTP");
-		} catch(e) {
-			alert(e.message);
-			xhr = null;
-		}
-	} else {
-		xhr = new XMLHttpRequest();
-	}
-	var url = jms.baseURL + 'current';
-	xhr.onreadystatechange = function (e) {
-		var request = e.target;
-		if (request.readyState === 4) {
-			jms.client(request.getResponseHeader('jms-buildnumber'), document);
-		}
-	};
-	xhr.ontimeout = function () {};
-	xhr.onerror = function () {};
-	xhr.open('OPTIONS', url , true);
-	xhr.send();
-}(document));
+})(document);
