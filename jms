@@ -36,7 +36,14 @@ stop() {
 deploy () {
 
     cd $BASEDIR
-	node bin/jms-deploy.js
+	node bin/deploy.js
+
+}
+
+purge () {
+
+    cd $BASEDIR
+	node bin/jms-purge-cache.js $2
 
 }
 
@@ -76,8 +83,11 @@ case "$1" in
 	restart|reload)
 		restart
 	;;
+	purge)
+		purge
+	;;
 *)
-	echo $"Usage: $0 {start|stop|restart|deploy|status}"
+	echo $"Usage: $0 {start|stop|restart|deploy|status|purge}"
 	exit 1
 esac
 exit 0
