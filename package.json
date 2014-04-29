@@ -5,6 +5,7 @@
 	"version": "0.0.8",
 	"dependencies": {
 		"graceful-fs":     "latest",
+		"sse4_crc32":      "latest",
 		"lodash":          "latest",
 		"request":         "latest",
 		"async":           "~0.2.9",
