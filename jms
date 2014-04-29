@@ -43,7 +43,7 @@ deploy () {
 purge () {
 
     cd $BASEDIR
-	node bin/jms-purge-cache.js $2
+	node bin/purge-cache.js $2
 
 }
 
