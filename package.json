@@ -2,7 +2,7 @@
 	"name": "jms",
 	"description": "AMD JS module server with server-side package handling",
 	"author": "nec@ustream.tv",
-	"version": "0.0.8",
+	"version": "0.0.9",
 	"dependencies": {
 		"graceful-fs":     "latest",
 		"sse4_crc32":      "latest",

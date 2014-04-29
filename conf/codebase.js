@@ -1,7 +1,7 @@
 var paths    = require('./paths');
 var codebase = {
 
-	jsrepo: paths.basedir + '/js',
+	jsrepo: paths.basedir + '/examples/js',
 
 	loadHidden: false,
 

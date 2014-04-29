@@ -55,8 +55,6 @@ window.jms.client = (function (document, undef) {
 				if (lastLoaded == context.callBackIndex) {
 					lastLoaded++;
 
-					console.log('running received callback');
-
 					var moduleMap = window['jmscb_' + context.callBackIndex]();
 
 					context.passContext(moduleMap.split('%%%'));
@@ -138,7 +136,6 @@ window.jms.client = (function (document, undef) {
 
 
 	for (var i in cfg.pre) {
-		console.log(cfg.pre[i]);
 		require.apply(window, cfg.pre[i]);
 	}
 	cfg.pre = [];
