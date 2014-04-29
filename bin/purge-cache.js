@@ -5,18 +5,9 @@ var storage        = require(paths.libdir + '/storage');
 
 
 if (process.argv[2]) {
-	deleteSingleKey(process.argv[2]);
+	deleteKeys(null, [process.argv[2]]);
 } else {
 	storage.hkeys('cache', deleteKeys);
-}
-
-function deleteSingleKey (key) {
-	storage.hdel('cache', [key], function (err, result) {
-		if (err) {
-			process.exit(1);
-			return;
-		}
-	});
 }
 
 function deleteKeys (err, keys) {
@@ -37,3 +28,11 @@ function deleteKeys (err, keys) {
 	return;
 }
 
+function deleteSingleKey (key) {
+	storage.hdel('cache', [key], function (err, result) {
+		if (err) {
+			process.exit(1);
+			return;
+		}
+	});
+}
