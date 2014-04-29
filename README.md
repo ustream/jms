@@ -31,8 +31,24 @@ Fire up Redis, then:
 ./jms deploy
 ```
 
+If you haven't modified the configs, it will deploy the small codebase from examples/js
+
 ## Start
 
 ```
 ./jms start
+```
+
+## Other commands
+
+To clear the internal cache
+
+```
+./jms purge
+```
+
+To remove a single path from the cache
+
+```
+./jms purge /path_to-remove
 ```
