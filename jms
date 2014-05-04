@@ -10,7 +10,7 @@ checkdirs() {
     fi
 
     if [ ! -d "$BASEDIR/logs" ]; then
-            mkdir "$BASEDIR/logs"
+        mkdir "$BASEDIR/logs"
     fi
 }
 
@@ -36,14 +36,14 @@ stop() {
 deploy () {
 
     cd $BASEDIR
-	node bin/deploy.js $2
+	node bin/deploy.js $1
 
 }
 
 purge () {
 
     cd $BASEDIR
-	node bin/purge-cache.js $2
+	node bin/purge-cache.js $1
 
 }
 
@@ -78,13 +78,13 @@ case "$1" in
 		status
 	;;
 	deploy)
-		deploy
+		deploy $2
 	;;
 	restart|reload)
 		restart
 	;;
 	purge)
-		purge
+		purge $2
 	;;
 *)
 	echo $"Usage: $0 {start|stop|restart|deploy|status|purge}"

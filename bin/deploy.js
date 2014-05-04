@@ -41,22 +41,15 @@ function donePurge (err) {
 function runBuilder () {
 	var log = require(paths.libdir + '/debug/log');
 
-	console.log(process.argv );
-
 	if (process.argv[2]) {
 		builder(process.argv[2], doneBuild);
 		return;
 	}
 
+	// todo: build all option
 	Object.keys(codebaseConf.sources).forEach(function (source) {
-		console.log(arguments );
-
-		builder(source, function () {})
-
-	})
-
-
-
+		builder(source, function () {});
+	});
 
 }
 
