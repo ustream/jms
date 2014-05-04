@@ -28,9 +28,9 @@ window.jms.client = (function (document, undef) {
 	}
 
 	debug([
-		['  configuration', cfg],
-		//['  buildNumber', buildNumber],
-		['  server', '']
+		['  source', cfg.source],
+		['  server', cfg.baseURL],
+		['  configuration', cfg]
 	]);
 
 	window.jms = function (module, actionArgs, action, actionContext) {
@@ -108,7 +108,7 @@ window.jms.client = (function (document, undef) {
 		var url = [
 			cfg.baseURL,
 			'js/',
-			//buildNumber + '/',
+			cfg.source + '/',
 			'+',
 			modulesToLoad.join(','),
 			(loadedList.length) ? '-'+loadedList.join(',') : '',

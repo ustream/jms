@@ -1,8 +1,10 @@
 #!/usr/bin/env node
 
 var paths          = require('../conf/paths');
+var codebaseConf   = require(paths.confdir + '/codebase');
 var checkdirs      = require(paths.libdir + '/startup/checkdirs');
 var cachepurge     = require(paths.libdir + '/cachepurge');
+var builder        = require(paths.libdir + '/startup/builder')
 var startTime = +new Date();
 
 function doneBuild (err) {
@@ -38,7 +40,24 @@ function donePurge (err) {
 
 function runBuilder () {
 	var log = require(paths.libdir + '/debug/log');
-	require(paths.libdir + '/startup/builder')(true, doneBuild);
+
+	console.log(process.argv );
+
+	if (process.argv[2]) {
+		builder(process.argv[2], doneBuild);
+		return;
+	}
+
+	Object.keys(codebaseConf.sources).forEach(function (source) {
+		console.log(arguments );
+
+		builder(source, function () {})
+
+	})
+
+
+
+
 }
 
 checkdirs(runBuilder);

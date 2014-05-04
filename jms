@@ -36,7 +36,7 @@ stop() {
 deploy () {
 
     cd $BASEDIR
-	node bin/deploy.js
+	node bin/deploy.js $2
 
 }
 
