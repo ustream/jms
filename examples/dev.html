@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+
+    <link rel="dns-prefetch" href="//127.0.0.1">
+    <script type="text/javascript">
+        var jms = {
+            baseURL: '127.0.0.1:1337/',
+            locale: 'en_US',
+            source: 'dev',
+            debug: true
+        };
+        (function() {
+            jms.pre = [], jms.baseURL = ('https:' == document.location.protocol ? 'https://' : 'http://') + jms.baseURL;
+            var jmsrc = document.createElement('script'); jmsrc.type = 'text/javascript'; jmsrc.async = true;
+            jmsrc.src = jms.baseURL + 'client.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(jmsrc, s);
+            window.require = function(){jms.pre.push(arguments)}
+        })();
+
+    </script>
+
+
+    <script type="text/javascript">
+        require(['apps/Main'], function(Main) {
+            Main();
+        });
+    </script>
+
+</head>
+<body class="container">
+
+    <div class="page-header">
+        <h1>JMS examples <small>Serving development codebase</small></h1>
+    </div>
+
+    <button type="submit" id="OpenModalApp" data-loading-text="Opening some complex overlay..." class="btn btn-primary">Open some complex overlay</button>
+
+
+</body>
+</html>
