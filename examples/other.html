@@ -32,12 +32,30 @@
     </script>
 
 </head>
-<body class="container">
+<body>
+
+<nav class="navbar navbar-default " role="navigation">
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+            <li><a href="index.html">Sample app</a></li>
+            <li class="active"><a href="other.html">Separate app</a></li>
+            <li><a href="dev.html">Dev repo</a></li>
+        </ul>
+    </div>
+</nav>
+
+<section class="container">
 
     <div class="page-header">
         <h1>JMS examples <small>Another app with no common deps with the simple app</small></h1>
     </div>
 
+    <p>
+        The app loaded for this page has no common dependency with the Sample app.
+        Modifying either of them, should not affect the cached url, lodaded for the another one.
+    </p>
+
+    </section>
 
 </body>
 </html>
