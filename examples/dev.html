@@ -10,9 +10,11 @@
     <script type="text/javascript">
         var jms = {
             baseURL: '127.0.0.1:1337/',
-            locale: 'en_US',
             source: 'dev',
-            debug: true
+            params: {
+                debug: true,
+                locale: 'en_US'
+            }
         };
         (function() {
             jms.pre = [], jms.baseURL = ('https:' == document.location.protocol ? 'https://' : 'http://') + jms.baseURL;

@@ -142,13 +142,13 @@ window.jms.client = (function (document, undef) {
 
 
 	function params () {
-		var params = [];
+		var params = [],
+			paramlist = cfg.params;
 
-		if (cfg.locale) {
-			params.push('locale=' + cfg.locale);
-		}
-		if (cfg.debug) {
-			params.push('debug=1');
+		for (var p in paramlist) {
+			if (paramlist.hasOwnProperty(p)) {
+				params.push(p + '=' + paramlist[p]);
+			}
 		}
 
 		params.push('cb=jmscb_' + callBackOrder);
