@@ -12,8 +12,10 @@ function done (err) {
 }
 
 
-if (process.argv[2]) {
-	cachepurge.deleteKeys(null, [process.argv[2]], done);
+if (process.argv[2] && process.argv[3]) {
+	cachepurge.deleteKeys(null, [process.argv[2]], [process.argv[3]], done);
+} else if (process.argv[2] && !process.argv[3]) {
+	cachepurge.deleteSource(null, [process.argv[2]], done);
 } else {
 	cachepurge.deleteAll(done);
 }

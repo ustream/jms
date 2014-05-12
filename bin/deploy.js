@@ -7,7 +7,7 @@ var cachepurge     = require(paths.libdir + '/cachepurge');
 var builder        = require(paths.libdir + '/startup/builder')
 var startTime = +new Date();
 
-function doneBuild (err) {
+function doneBuild (err, source) {
 	var log = require(paths.libdir + '/debug/log');
 	var doneTime = +new Date();
 
@@ -21,7 +21,14 @@ function doneBuild (err) {
 		return;
 	}
 
-	cachepurge.deleteAll(donePurge);
+	if (source) {
+		return cachepurge.deleteSource(source, donePurge);
+	}
+
+	log.info('jms-deploy', 'done');
+	process.exit(0);
+
+
 }
 
 function donePurge (err) {
@@ -40,15 +47,32 @@ function donePurge (err) {
 
 function runBuilder () {
 	var log = require(paths.libdir + '/debug/log');
+	var sources = Object.keys(codebaseConf.sources);
 
 	if (process.argv[2]) {
 		builder(process.argv[2], doneBuild);
 		return;
 	}
 
-	// todo: build all option
+	var done = function (err, source) {
+
+		if (!sources || err) {
+			sources = false;
+			return doneBuild(err, source);
+		}
+
+		sources.pop();
+		cachepurge.deleteSource(source, function () {});
+
+		if (sources.length === 0) {
+			doneBuild(null)
+		}
+
+	}
+
+	// build all
 	Object.keys(codebaseConf.sources).forEach(function (source) {
-		builder(source, function () {});
+		builder(source, done);
 	});
 
 }
