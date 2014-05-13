@@ -25,7 +25,7 @@
 		"uglify-js":       "latest",
 		"esprima":         "latest",
 		"escodegen":       "latest",
-		"estraverse":    "latest",
+		"estraverse":      "latest",
 		"npmlog":          "latest",
 		"redis":           "latest",
 		"stream-combiner": "latest",
