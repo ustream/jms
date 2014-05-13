@@ -1,6 +1,6 @@
 {
 	"name": "jms",
-	"version": "0.0.9",
+	"version": "0.1.0",
 	"description": "AMD JS module server with server-side package handling",
 	"author": "_Nec <nec@ustream.tv>",
 	"license": "MIT",
