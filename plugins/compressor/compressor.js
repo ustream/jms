@@ -7,7 +7,7 @@ var paths     = require('../../conf/paths');
 var log       = require(paths.libdir + '/debug/log');
 
 
-var EventEmitter = require('events').EventEmitter
+var EventEmitter = require('events').EventEmitter;
 
 function ModuleCompressor (streamConf, pluginConf) {
 	Transform.call(this, streamConf);
