@@ -1,8 +1,21 @@
 {
 	"name": "jms",
-	"description": "AMD JS module server with server-side package handling",
-	"author": "nec@ustream.tv",
 	"version": "0.0.9",
+	"description": "AMD JS module server with server-side package handling",
+	"author": "_Nec <nec@ustream.tv>",
+	"license": "MIT",
+	"keywords": [
+		"javascript",
+		"module",
+		"modules",
+		"amd",
+		"dependency",
+		"dependencies"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ustream/jms.git"
+	},
 	"dependencies": {
 		"graceful-fs":     "latest",
 		"sse4_crc32":      "latest",
@@ -25,5 +38,8 @@
 		"sinon":                "latest",
 		"mocha":                "latest",
 		"grunt-contrib-uglify": "0.2.2"
+	},
+	"engines": {
+		"node": ">= 0.10"
 	}
 }
