@@ -32,14 +32,14 @@
 		"pm2-interface":   "latest"
 	},
 	"devDependencies": {
-		"grunt":                "latest",
-		"grunt-mocha":          "latest",
 		"chai":                 "latest",
 		"sinon":                "latest",
-		"mocha":                "latest",
-		"grunt-contrib-uglify": "0.2.2"
+		"mocha":                "latest"
 	},
 	"engines": {
 		"node": ">= 0.10"
+	},
+	"scripts": {
+		"test": "mocha --ui tdd --reporter spec tests/*.js"
 	}
 }
