@@ -36,7 +36,7 @@ stop() {
 deploy () {
 
     cd $BASEDIR
-	node bin/deploy.js $1
+	node bin/deploy.js $1 $2 $3 $4 $5
 
 }
 
@@ -78,7 +78,7 @@ case "$1" in
 		status
 	;;
 	deploy)
-		deploy $2
+		deploy $2 $3 $4 $5 $6
 	;;
 	restart|reload)
 		restart

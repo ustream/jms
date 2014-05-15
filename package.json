@@ -17,6 +17,7 @@
 		"url": "https://github.com/ustream/jms.git"
 	},
 	"dependencies": {
+		"minimist":        "latest",
 		"graceful-fs":     "latest",
 		"sse4_crc32":      "latest",
 		"lodash":          "latest",

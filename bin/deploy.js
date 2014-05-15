@@ -7,6 +7,15 @@ var cachepurge     = require(paths.libdir + '/cachepurge');
 var builder        = require(paths.libdir + '/startup/builder')
 var startTime = +new Date();
 
+
+
+var argv = require('minimist')(process.argv.slice(2));
+
+console.dir(argv)
+
+process.exit(0);
+
+
 function doneBuild (err, source) {
 	var log = require(paths.libdir + '/debug/log');
 	var doneTime = +new Date();
@@ -49,8 +58,8 @@ function runBuilder () {
 	var log = require(paths.libdir + '/debug/log');
 	var sources = Object.keys(codebaseConf.sources);
 
-	if (process.argv[2]) {
-		builder(process.argv[2], doneBuild);
+	if (argv[0]) {
+		builder(argv[0], doneBuild);
 		return;
 	}
 
@@ -65,7 +74,7 @@ function runBuilder () {
 		cachepurge.deleteSource(source, function () {});
 
 		if (sources.length === 0) {
-			doneBuild(null)
+			doneBuild(null);
 		}
 
 	}

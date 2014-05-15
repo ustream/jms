@@ -25,8 +25,6 @@ suite('storage', function(){
 
 	});
 
-
-
 	suite('get', function(){
 		test('should call get on redis storage module', function () {
 			storage.get('key', function () {});
@@ -56,19 +54,56 @@ suite('storage', function(){
 
 	suite('hmset', function(){
 		test('should call hmset on redis storage module', function () {
-			storage.hmset('hash', 'key', 123, function () {});
+			storage.hmset('hash', {a: 123}, function () {});
 
 			sinon.assert.calledOnce(storage_mock.hmset);
-			sinon.assert.calledWith(storage_mock.hmset, 'hash', 'key', 123, sinon.match.func);
+			sinon.assert.calledWith(storage_mock.hmset, 'hash', sinon.match.object, sinon.match.func);
 		});
 	});
 
 	suite('hmget', function(){
 		test('should call hmget on redis storage module', function () {
-			storage.hmget('hash', 'key', [123], function () {});
+			storage.hmget('hash', [123], function () {});
 
 			sinon.assert.calledOnce(storage_mock.hmget);
-			sinon.assert.calledWith(storage_mock.hmget, 'hash', 'key', sinon.match.array, sinon.match.func);
+			sinon.assert.calledWith(storage_mock.hmget, 'hash', sinon.match.array, sinon.match.func);
+		});
+	});
+
+	suite('hkeys', function(){
+		test('should call hkeys on redis storage module', function () {
+			storage.hkeys('hash', function () {});
+
+			sinon.assert.calledOnce(storage_mock.hkeys);
+			sinon.assert.calledWith(storage_mock.hkeys, 'hash', sinon.match.func);
+		});
+	});
+
+	suite('hdel', function(){
+		test('should call hdel on redis storage module', function () {
+			storage.hdel('hash', ['key'], function () {});
+
+			sinon.assert.calledOnce(storage_mock.hdel);
+			sinon.assert.calledWith(storage_mock.hdel, 'hash', sinon.match.array, sinon.match.func);
+		});
+	});
+
+	suite('hgetall', function(){
+		test('should call hgetall on redis storage module', function () {
+			storage.hgetall('hash', function () {});
+
+			sinon.assert.calledOnce(storage_mock.hgetall);
+			sinon.assert.calledWith(storage_mock.hgetall, 'hash', sinon.match.func);
+		});
+	});
+
+
+	suite('exists', function(){
+		test('should call exists on redis storage module', function () {
+			storage.exists('key', function () {});
+
+			sinon.assert.calledOnce(storage_mock.exists);
+			sinon.assert.calledWith(storage_mock.exists, 'key', sinon.match.func);
 		});
 	});
 });
