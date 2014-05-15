@@ -1,4 +1,4 @@
-var paths    = require('./paths');
+var paths    = require('../lib/paths');
 
 module.exports = {
 
@@ -86,7 +86,7 @@ module.exports = {
 		redis: {
 			host: '127.0.0.1',
 			port: 6379,
-			database: 3
+			database: 0
 		}
 
 	},

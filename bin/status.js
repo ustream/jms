@@ -1,6 +1,7 @@
 var http      = require('http');
-var paths     = require('../conf/paths');
-var monitConf = require(paths.confdir + '/monit');
+var paths     = require('../lib/paths');
+var config    = require(paths.libdir + '/getconfig');
+var monitConf = config.monit;
 
 function capitaliseFirstLetter(string)
 {

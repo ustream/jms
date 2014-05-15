@@ -1,13 +1,6 @@
-var paths    = require('./paths');
+var paths    = require('../lib/paths');
 
 module.exports = {
-
-	/**
-	 * codebase configuration
-	 *
-	 * this is where you can define multiple codebase repos by their base path
-	 * all modules in each repo are relatively named to their root path
-	 */
 	codebase: {
 
 		sources: {
@@ -28,18 +21,12 @@ module.exports = {
 
 	},
 
-	/**
-	 * network configuration
-	 */
 	network: {
 
 		host: '127.0.0.1',
 
 		port: 1337,
 
-		/**
-		 * internal cache turned on or off
-		 */
 		cache: true
 	},
 
@@ -86,7 +73,7 @@ module.exports = {
 		redis: {
 			host: '127.0.0.1',
 			port: 6379,
-			database: 3
+			database: 4
 		}
 
 	},

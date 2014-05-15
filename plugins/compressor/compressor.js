@@ -3,7 +3,7 @@ var util      = require('util');
 
 var uglify    = require('uglify-js');
 
-var paths     = require('../../conf/paths');
+var paths     = require('../../lib/paths');
 var log       = require(paths.libdir + '/debug/log');
 
 

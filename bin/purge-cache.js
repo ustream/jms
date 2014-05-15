@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-var paths          = require('../conf/paths');
+var paths          = require('../lib/paths');
 var cachepurge     = require(paths.libdir + '/cachepurge');
 
 function done (err) {

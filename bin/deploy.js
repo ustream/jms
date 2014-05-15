@@ -1,17 +1,22 @@
 #!/usr/bin/env node
 
-var paths          = require('../conf/paths');
-var codebaseConf   = require(paths.confdir + '/codebase');
+var paths          = require('../lib/paths');
+
+var config          = require(paths.libdir + '/getconfig');
+
+
+var codebaseConf   = config.codebase;
 var checkdirs      = require(paths.libdir + '/startup/checkdirs');
 var cachepurge     = require(paths.libdir + '/cachepurge');
-var builder        = require(paths.libdir + '/startup/builder')
-var startTime = +new Date();
+var builder        = require(paths.libdir + '/startup/builder');
 
+var startTime = +new Date();
 
 
 var argv = require('minimist')(process.argv.slice(2));
 
 //console.dir(argv)
+
 
 
 

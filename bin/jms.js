@@ -1,5 +1,5 @@
 
-var paths    = require('../conf/paths');
+var paths    = require('../lib/paths');
 var ModuleServer = require(paths.libdir + '/server/moduleserver');
 
 
