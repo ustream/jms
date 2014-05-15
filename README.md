@@ -20,9 +20,15 @@ npm install
 	
 ```
 
+## Tests
+
+```
+npm test
+```
+
 ## Configure
 
-see conf/*.js
+see config/*.js
 
 
 ## Deploy
@@ -33,7 +39,7 @@ Fire up Redis, then:
 ./jms deploy
 ```
 
-If you haven't modified the configs, it will deploy the small codebase from examples/js
+If you haven't modified the configs, it will deploy all the small codebases from examples/live and examples/dev
 
 ## Start
 
@@ -49,8 +55,8 @@ To clear the internal cache
 ./jms purge
 ```
 
-To remove a single path from the cache
+To remove a single source repo cache
 
 ```
-./jms purge /path_to-remove
+./jms purge repoId
 ```
