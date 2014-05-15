@@ -11,9 +11,9 @@ var startTime = +new Date();
 
 var argv = require('minimist')(process.argv.slice(2));
 
-console.dir(argv)
+//console.dir(argv)
 
-process.exit(0);
+
 
 
 function doneBuild (err, source) {
