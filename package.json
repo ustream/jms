@@ -42,6 +42,6 @@
 		"node": ">= 0.10"
 	},
 	"scripts": {
-		"test": "mocha --ui tdd --config test --reporter spec tests/*.js"
+		"test": "mocha --ui tdd --config test tests/*.js"
 	}
 }
