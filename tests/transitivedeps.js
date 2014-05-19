@@ -101,6 +101,47 @@ suite('transitivedeps', function(){
 			}
 		});
 
+		test('circular transitive deps', function (done) {
+
+			var modules = [
+				{
+					module: 'mod/Foo',
+					dependencies: ['mod/Bar']
+				},
+				{
+					module: 'mod/Bar',
+					dependencies: ['mod/Foo', 'deps/Baz']
+				},
+				{
+					module: 'deps/Baz',
+					dependencies: []
+				}
+			];
+
+			try {
+
+				var next = sinon.spy();
+				var deps = new TransitiveDeps();
+
+				deps.on('end', function (modules, cb) {
+
+					assert.equal(JSON.stringify(modules[0].transitive_dependencies), JSON.stringify([ 'deps/Baz', 'mod/Bar' ]));
+
+					done();
+				});
+
+				deps.on('error', function (err) {
+					throw(new Error(err.message));
+				});
+
+				deps.run(modules, next);
+
+			} catch (e) {
+				done(e);
+			}
+		});
+
+
 	});
 
 });
