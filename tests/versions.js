@@ -50,6 +50,29 @@ suite('versions', function(){
 			sinon.assert.calledWith(storage_mock.hset, 'versions:live', 'foo/Bar', '["def67841","abcd1234"]');
 		});
 
+		test('create new version array', function () {
+			var spy = sinon.spy();
+			versions.add('live', 'foo/Bar', 'abcd1234');
+
+			var cb = storage_mock.hmget.getCall(0).args[2];
+
+			cb(null, [null]);
+
+			sinon.assert.calledOnce(storage_mock.hset);
+			sinon.assert.calledWith(storage_mock.hset, 'versions:live', 'foo/Bar', '["abcd1234"]');
+		});
+
+		test('skip versions already present in the list', function () {
+			var spy = sinon.spy();
+			versions.add('live', 'foo/Bar', 'abcd1234');
+
+			var cb = storage_mock.hmget.getCall(0).args[2];
+
+			cb(null, ['["abcd1234"]']);
+
+			sinon.assert.notCalled(storage_mock.hset);
+		});
+
 	});
 
 	suite('purge', function(){
