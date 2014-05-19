@@ -126,8 +126,8 @@ suite('transitivedeps', function(){
 				deps.on('end', function (modules, cb) {
 
 					assert.equal(JSON.stringify(modules[0].transitive_dependencies), JSON.stringify([ 'deps/Baz', 'mod/Bar' ]));
-
 					done();
+
 				});
 
 				deps.on('error', function (err) {
