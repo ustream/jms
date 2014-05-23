@@ -66,6 +66,70 @@ suite('dependency mtime updater', function(){
 		});
 
 
+		test('multiple dep tree, one does not affect the other', function (done) {
+
+			var modules = [
+				{
+					module: 'mod/Foo',
+					dependencies: ['mod/Bar'],
+					transitive_dependencies: ['deps/Baz', 'mod/Bar'],
+					mtime: new Date("2014-05-13T14:57:32.000Z"),
+					requirecalls: []
+				},
+				{
+					module: 'mod/Bar',
+					dependencies: ['deps/Baz'],
+					transitive_dependencies: ['deps/Baz'],
+					mtime: new Date("2014-05-14T14:57:32.000Z"),
+					requirecalls: []
+				},
+				{
+					module: 'deps/Baz',
+					dependencies: [],
+					transitive_dependencies: [],
+					mtime: new Date("2014-05-1314:57:32.000Z"),
+					requirecalls: []
+				},
+				{
+					module: 'mod/Lorem',
+					dependencies: ['mod/Ipsum'],
+					transitive_dependencies: ['deps/Baz', 'mod/Ipsum'],
+					mtime: new Date("2014-05-13T14:57:32.000Z"),
+					requirecalls: []
+				},
+				{
+					module: 'mod/Ipsum',
+					dependencies: ['deps/Baz'],
+					transitive_dependencies: ['deps/Baz'],
+					mtime: new Date("2014-05-13T14:57:32.000Z"),
+					requirecalls: []
+				}
+			];
+
+			try {
+
+				var next = sinon.spy();
+				var deps = new DeptimeUpdater();
+
+				deps.on('end', function (modules, cb) {
+					modules.forEach(function (module) {
+						if (module.module == 'mod/Bar' || module.module == 'mod/Foo') {
+							assert.equal(+new Date(module.mtime), 1400079452000);
+						} else {
+							assert.notEqual(+new Date(module.mtime), 1400079452000);
+						}
+					});
+					done();
+				});
+
+				deps.run(modules, next);
+
+			} catch (e) {
+				done(e);
+			}
+		});
+
+
 
 	});
 
