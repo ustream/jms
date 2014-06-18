@@ -1,4 +1,4 @@
-window.jms.client = (function (document, undef) {
+window.jms.client = (function (window, document, undef) {
 
 	var cfg,
 		isOpera = typeof opera !== 'undefined' && opera.toString() === '[object Opera]', // (dull)
@@ -13,6 +13,7 @@ window.jms.client = (function (document, undef) {
 		callBackOrder = 0,
 		orderedLoaders = {},
 		lastLoaded = 1,
+		errorMode = false,
 		contextList = {};
 
 	if (baseElement) {
@@ -46,6 +47,11 @@ window.jms.client = (function (document, undef) {
 			return;
 		}
 
+		if (errorMode) {
+			throw new Error("There was an error in a loaded module package, aborting");
+			return;
+		}
+
 		callBackOrder += 1;
 		context = newLoader(callBackOrder, actionArgs, action, actionContext);
 
@@ -54,26 +60,26 @@ window.jms.client = (function (document, undef) {
 
 				if (lastLoaded == context.callBackIndex) {
 					lastLoaded++;
+					var data = window['jmscb_' + context.callBackIndex]();
 
-					var moduleMap = window['jmscb_' + context.callBackIndex]();
-
-					context.passContext(moduleMap.split('%%%'));
-
-
-					if (orderedLoaders['load_' + (context.callBackIndex + 1)]) {
-						orderedLoaders['load_' + (context.callBackIndex + 1)]();
+					try {
+						data.payload.call(window);
+					} catch (e) {
+						errorMode = true;
+						throw e;
 					}
 
-					//( orderedLoaders['load_' + (context.callBackIndex + 1)] || function() {} )();
+					context.passContext(data.list.split('%%%'));
 
-					window['jmscb_' + context.callBackIndex] = undefined;
-					orderedLoaders['load_' + context.callBackIndex] = undefined;
+					if (orderedLoaders['load_' + (context.callBackIndex + 1)]) {
+						executeLoader('load_' + (context.callBackIndex + 1));
+					}
+
+					window['jmscb_' + context.callBackIndex] = void 0;
+					orderedLoaders['load_' + context.callBackIndex] = void 0;
 
 				}
-
-
-			}
-
+			};
 		}(context));
 
 		debug([
@@ -119,6 +125,7 @@ window.jms.client = (function (document, undef) {
 		// they have been loaded together
 		//loadedList.push(requestedModules.join(','));
 		// they have been loaded separately
+
 		for (var m = 0; m < requestedModules.length ; m++ ) {
 			loadedList.push(requestedModules[m]);
 		}
@@ -142,18 +149,19 @@ window.jms.client = (function (document, undef) {
 
 
 	function params () {
-		var params = [],
-			paramlist = cfg.params;
+		var prms = [],
+			paramlist = cfg.params,
+			ret;
 
 		for (var p in paramlist) {
 			if (paramlist.hasOwnProperty(p)) {
-				params.push(p + '=' + paramlist[p]);
+				prms.push(p + '=' + paramlist[p]);
 			}
 		}
 
-		params.push('cb=jmscb_' + callBackOrder);
+		prms.push('cb=jmscb_' + callBackOrder);
 
-		ret = params.length > 0 ? '?' + params.join('&') : '';
+		ret = prms.length > 0 ? '?' + prms.join('&') : '';
 
 		return ret;
 	}
@@ -335,7 +343,9 @@ window.jms.client = (function (document, undef) {
 				debug([
 					['completed load', loader.callBackIndex]
 				]);
-				orderedLoaders['load_'+loader.callBackIndex]();
+
+				executeLoader('load_'+loader.callBackIndex);
+
 			},
 
 			passContext: function (moduleMap) {
@@ -356,6 +366,10 @@ window.jms.client = (function (document, undef) {
 		});
 	}
 
+	function executeLoader (id) {
+		orderedLoaders[id]();
+	}
+
 	function clone(obj) {
 		var target = {};
 		for (var i in obj) {
@@ -367,16 +381,16 @@ window.jms.client = (function (document, undef) {
 	}
 
 	function debug (data) {
-		if (!cfg.debug) {
+		if (!cfg.params || !cfg.params.debug) {
 			return;
 		}
 
-		console.group('jms')
+		console.group('jms');
 		for (var i in data) {
 			console.log(data[i][0], data[i][1]);
 		}
-		console.groupEnd()
+		console.groupEnd();
 	}
 
 
-})(document);
+})(window, document);

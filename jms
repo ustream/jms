@@ -43,7 +43,7 @@ deploy () {
 purge () {
 
     cd $BASEDIR
-	node bin/purge-cache.js $1 $2
+	node bin/purge-cache.js $1 $2 $3 $4 $5
 
 }
 
@@ -84,7 +84,7 @@ case "$1" in
 		restart
 	;;
 	purge)
-		purge $2
+		purge $2 $3 $4 $5 $6
 	;;
 *)
 	echo $"Usage: $0 {start|stop|restart|deploy|status|purge}"
