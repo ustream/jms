@@ -1,47 +1,48 @@
 {
-	"name": "jms",
-	"version": "0.1.0",
-	"description": "AMD JS module server with server-side package handling",
-	"author": "_Nec <nec@ustream.tv>",
-	"license": "MIT",
-	"keywords": [
-		"javascript",
-		"module",
-		"modules",
-		"amd",
-		"dependency",
-		"dependencies"
-	],
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/ustream/jms.git"
-	},
-	"dependencies": {
-		"minimist":        "latest",
-		"graceful-fs":     "latest",
-		"sse4_crc32":      "latest",
-		"lodash":          "latest",
-		"request":         "latest",
-		"async":           "~0.2.9",
-		"uglify-js":       "latest",
-		"esprima":         "latest",
-		"escodegen":       "latest",
-		"estraverse":      "latest",
-		"npmlog":          "latest",
-		"redis":           "latest",
-		"stream-combiner": "latest",
-		"pm2-interface":   "latest"
-	},
-	"devDependencies": {
-		"rewire":               "latest",
-		"chai":                 "latest",
-		"sinon":                "latest",
-		"mocha":                "latest"
-	},
-	"engines": {
-		"node": ">= 0.10"
-	},
-	"scripts": {
-		"test": "mocha --ui tdd --config test tests/*.js"
-	}
+  "name": "jms",
+  "version": "0.1.0",
+  "description": "AMD JS module server with server-side package handling",
+  "author": "_Nec <nec@ustream.tv>",
+  "license": "MIT",
+  "keywords": [
+    "javascript",
+    "module",
+    "modules",
+    "amd",
+    "dependency",
+    "dependencies"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ustream/jms.git"
+  },
+  "dependencies": {
+    "async":           "~0.2.9",
+    "escodegen":       "latest",
+    "esprima":         "latest",
+    "estraverse":      "latest",
+    "graceful-fs":     "latest",
+    "lodash":          "latest",
+    "minimist":        "latest",
+    "npmlog":          "latest",
+    "pm2-interface":   "latest",
+    "redis":           "latest",
+    "request":         "latest",
+    "sse4_crc32":      "latest",
+    "stream-combiner": "latest",
+    "strong-agent":    "^0.4.6",
+    "uglify-js":       "latest"
+  },
+  "devDependencies": {
+    "rewire": "latest",
+    "chai":   "latest",
+    "sinon":  "latest",
+    "mocha":  "latest"
+  },
+  "engines": {
+    "node": ">= 0.10"
+  },
+  "scripts": {
+    "test": "mocha --ui tdd --config test tests/*.js"
+  }
 }
