@@ -217,7 +217,7 @@ window.jms.client = (function (window, document, undef) {
 
 	function inArray(find, inArr) {
 		var ret = false;
-		if (!Array.prototype.indexOf) {
+		if (Array.prototype.indexOf) {
 			ret = inArr.indexOf(find) > -1;
 		} else {
 			var s = inArr.length;
