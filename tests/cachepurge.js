@@ -28,7 +28,7 @@ suite('cachepurge', function(){
 	suite('deleteSource', function(){
 		test('get all cache keys from redis for a source', function () {
 			var spy = sinon.spy();
-			cachepurge.deleteSource('live', spy)
+			cachepurge.deleteSource(null, 'live', spy)
 
 			sinon.assert.calledOnce(storage_mock.hkeys);
 			sinon.assert.calledWith(storage_mock.hkeys, 'cache:live', sinon.match.func);
@@ -36,7 +36,7 @@ suite('cachepurge', function(){
 
 		test('delete all cache keys from redis for a source', function () {
 			var spy = sinon.spy();
-			cachepurge.deleteSource('live', spy);
+			cachepurge.deleteSource(null, 'live', spy);
 
 			var cb = storage_mock.hkeys.getCall(0).args[1];
 
@@ -53,7 +53,7 @@ suite('cachepurge', function(){
 
 		test('delete all cache keys from redis for a source', function () {
 
-			cachepurge.deleteKeys('live', ['a', 'b', 'c'], function () {});
+			cachepurge.deleteKeys(null, 'live', ['a', 'b', 'c'], function () {});
 
 			sinon.assert.callCount(storage_mock.hdel, 3);
 			sinon.assert.calledWith(storage_mock.hdel, 'cache:live', ['a'], sinon.match.func);
