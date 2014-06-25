@@ -52,7 +52,7 @@ restart () {
     checkdirs
 
     cd $BASEDIR
-    pm2 restart jms > /dev/null 2>&1
+    pm2 restart processes.json > /dev/null 2>&1
     RET=$?
     exit $RET
 

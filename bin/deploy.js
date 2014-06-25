@@ -2,7 +2,7 @@
 
 var paths          = require('../lib/paths');
 
-var config         = require(paths.libdir + '/getconfig');
+var config          = require(paths.libdir + '/getconfig');
 
 
 var codebaseConf   = config.codebase;
@@ -71,7 +71,6 @@ function runBuilder () {
 	}
 
 	var done = function (err, source) {
-
 		if (!sources || err) {
 			sources = false;
 			return doneBuild(err, source);
@@ -83,8 +82,7 @@ function runBuilder () {
 		if (sources.length === 0) {
 			doneBuild(null);
 		}
-
-	}
+	};
 
 	// build all
 	Object.keys(codebaseConf.sources).forEach(function (source) {
