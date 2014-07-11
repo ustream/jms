@@ -48,7 +48,7 @@ suite('transitivedeps', function(){
 					sinon.assert.match(modules[1].transitive_dependencies, sinon.match.array);
 					sinon.assert.match(modules[2].transitive_dependencies, sinon.match.array);
 
-					assert.equal(JSON.stringify(modules[0].transitive_dependencies), JSON.stringify([ 'deps/Baz', 'mod/Bar' ]))
+					assert.equal(JSON.stringify(modules[0].transitive_dependencies), JSON.stringify([  'mod/Bar', 'deps/Baz' ]))
 
 					done();
 				});
@@ -125,7 +125,7 @@ suite('transitivedeps', function(){
 
 				deps.on('end', function (modules, cb) {
 
-					assert.equal(JSON.stringify(modules[0].transitive_dependencies), JSON.stringify([ 'deps/Baz', 'mod/Bar' ]));
+					assert.equal(JSON.stringify(modules[0].transitive_dependencies), JSON.stringify([ 'mod/Bar', 'deps/Baz' ]));
 					done();
 
 				});

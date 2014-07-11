@@ -17,7 +17,7 @@
     "url": "https://github.com/ustream/jms.git"
   },
   "dependencies": {
-    "async":           "~0.2.9",
+    "async":           "latest",
     "escodegen":       "latest",
     "esprima":         "latest",
     "estraverse":      "latest",
@@ -30,7 +30,6 @@
     "request":         "latest",
     "sse4_crc32":      "latest",
     "stream-combiner": "latest",
-    "strong-agent":    "^0.4.6",
     "uglify-js":       "latest"
   },
   "devDependencies": {

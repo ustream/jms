@@ -25,7 +25,10 @@ ModuleCompressor.prototype._transform = function (chunk, encoding, done) {
 	log.verbose('compressing ', data.module);
 
 	try {
-		uglifyObject = uglify.minify(data.source, {fromString: true});
+		uglifyObject = uglify.minify(data.source, {
+			fromString: true,
+			mangle: true
+		});
 		data.source = uglifyObject.code;
 	} catch (e) {
 

@@ -28,12 +28,6 @@ window.jms.client = (function (window, document, undef) {
 		throw Error("Missing base url for JMS");
 	}
 
-	debug([
-		['  source', cfg.source],
-		['  server', cfg.baseURL],
-		['  configuration', cfg]
-	]);
-
 	window.jms = function (module, actionArgs, action, actionContext) {
 
 		var requestedModules = actionArgs[1],
@@ -44,12 +38,10 @@ window.jms.client = (function (window, document, undef) {
 
 		if (requestedModules.join(',').indexOf('.js') > -1) {
 			throw new Error(requestedModules.join(',')  + " possibly refers to a file, not a module, aborting");
-			return;
 		}
 
 		if (errorMode) {
 			throw new Error("There was an error in a loaded module package, aborting");
-			return;
 		}
 
 		callBackOrder += 1;
@@ -69,7 +61,11 @@ window.jms.client = (function (window, document, undef) {
 						throw e;
 					}
 
-					context.passContext(data.list.split('%%%'));
+					if (window.jms.cfg.params.debug) {
+						window.jms.history.data.push(JSON.parse(data.manifest));
+					}
+
+					context.passContext(data.list.split('|'));
 
 					if (orderedLoaders['load_' + (context.callBackIndex + 1)]) {
 						executeLoader('load_' + (context.callBackIndex + 1));
@@ -139,13 +135,35 @@ window.jms.client = (function (window, document, undef) {
 		]);
 
 		load.call(this, context, module, url);
-	}
+	};
 
 
 	for (var i in cfg.pre) {
 		require.apply(window, cfg.pre[i]);
 	}
 	cfg.pre = [];
+
+	window.jms.cfg = cfg;
+
+	if (cfg.params.debug) {
+		window.jms.history = function () {
+			window.jms.history.data.forEach(function (data, i) {
+				console.group('jms call ' + i);
+				console.log('requested modules');
+				console.log(data.requested);
+				console.log('received modules');
+				console.log(data.received);
+				console.groupEnd();
+			});
+		};
+		window.jms.history.data = [];
+	}
+
+	debug([
+		['  source', cfg.source],
+		['  server', cfg.baseURL],
+		['  configuration', cfg]
+	]);
 
 
 	function params () {
@@ -381,7 +399,7 @@ window.jms.client = (function (window, document, undef) {
 	}
 
 	function debug (data) {
-		if (!cfg.params || !cfg.params.debug) {
+		if (!window.jms.cfg.params || !window.jms.cfg.params.debug) {
 			return;
 		}
 
