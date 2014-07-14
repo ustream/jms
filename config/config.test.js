@@ -94,6 +94,15 @@ module.exports = {
 		 */
 		local: false
 
+	},
+
+	cacheControl: {
+		// lib/server/responsehandler.js
+		responseHandler:  'public, max-age=2500834, s-maxage=2500834',
+		// lib/server/cachedresponse.js
+		cachedResponse: 'public, max-age=2500834, s-maxage=2500834',
+		// lib/server/redirectresponse.js
+		redirectResponse: 'max-age=300, s-maxage=300'
 	}
 
-}
+};
