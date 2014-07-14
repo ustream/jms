@@ -7,22 +7,23 @@ var storage_mock = {
 	hkeys: sinon.spy(),
 	hdel: sinon.spy()
 }
-
+var codebase_mock = {
+	sources: {
+		'live' : {},
+		'dev' : {}
+	}
+};
 
 suite('cachepurge', function(){
+
 	setup(function(){
-
-		cachepurge.__set__("storageconfig", {});
-		cachepurge.__set__("log", {});
+		cachepurge.__set__("codebaseConf", codebase_mock);
 		cachepurge.__set__("storage", storage_mock);
-
 	});
 
 	teardown(function(){
-
 		storage_mock.hkeys.reset();
 		storage_mock.hdel.reset();
-
 	});
 
 	suite('deleteSource', function(){
